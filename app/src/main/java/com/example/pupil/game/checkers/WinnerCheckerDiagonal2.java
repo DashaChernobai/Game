@@ -19,7 +19,7 @@ public class WinnerCheckerDiagonal implements WinnerCheckerInterface {
         PlayerModel lastPlayer = null;
         int successCounter = 1;
         for (int i = 1, len = field.length; i < len; i++) {
-            currPlayer = field[i][i].getPlayer();
+            currPlayer = field[i][field.length-i].getPlayer();
             if (currPlayer != null) {
                 if (successCounter == field.length) {
                     return currPlayer;

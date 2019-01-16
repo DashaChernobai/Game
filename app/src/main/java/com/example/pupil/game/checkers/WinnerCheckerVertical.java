@@ -4,32 +4,35 @@ import com.example.pupil.game.Game;
 import com.example.pupil.game.PlayerModel;
 import com.example.pupil.game.SquareModel;
 
-public class WinnerCheckerVertical implements WinnerCheckerInterface {
+class WinnerCheckerVertical implements WinnerCheckerInterface {
     private Game game;
-
-    public WinnerCheckerVertical(Game game) {
-        this.game = game;
+    public  WinnerCheckerVertical(Game game){
+        this.game=game;
     }
 
     @Override
     public PlayerModel checkWinner() {
         SquareModel[][] field = game.getField();
-        PlayerModel currPlayer = null;
-        PlayerModel lastPlayer;
-        for (int i = 0, len = field.length; i < len; i++) {
+        PlayerModel currPlayer;
+        PlayerModel lastPlayer = null;
+        int i = 0, len = field.length;
+        while (i <= len) {
             lastPlayer = null;
             int successCounter = 1;
-            for (int j = 0, len2 = field[i].length; j < len2; j++) {
+            int j = 0, len2 = field[i].length;
+            while (j <= len2) {
                 currPlayer = field[j][i].getPlayer();
                 if (currPlayer == lastPlayer && (currPlayer != null && lastPlayer != null)) {
                     successCounter++;
-                    if (successCounter == len2) return currPlayer;
+                    if (successCounter == len2) {
+                        return currPlayer;
+                    }
                 }
+                lastPlayer = currPlayer;
+                j++;
             }
-            lastPlayer = currPlayer;
-
+            i++;
         }
         return null;
     }
-
 }
