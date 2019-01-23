@@ -107,22 +107,7 @@ public class Game {
 
 
 
-    public static class Listener implements View.OnClickListener {
-        public int x = 0;
-        public int y = 0;
 
-        public Listener(int x, int y)
-        {
-            this.x = x;
-            this.y = y;
-        }
-
-
-        @Override
-        public void onClick(View v) {
-
-        }
-    }
     public boolean makeTurn(int x, int y) {
         if (field[x][y].isFilled()) {
             return false;
@@ -146,10 +131,22 @@ public class Game {
     }
 
 
+    public static class Listener implements View.OnClickListener
+    {
+        private int x = 0;
+        private int y = 0;
+
+        public Listener(int x, int y)
+        {
+            this.x = x;
+            this.y = y;
+        }
+
+        public void onClick(View view)
+        {
+            Button button = (Button) view;
+        }
+    }
 
 
-
-
-
-
-}
+    }

@@ -12,62 +12,56 @@ import static com.example.pupil.game.Game.field;
 
 public class MainActivity extends AppCompatActivity {
 
-    private TableLayout tlXO;
-    private Button[][] buttons = new Button[3][3];
+    public TableLayout tlXO;
+    public Button[][] buttons = new Button[3][3];
     public Game game;
     public PlayerModel activePlayer;
+int x,y;
 
-
-
-    public void gameOver(PlayerModel player)
-    {
+    public void gameOver(PlayerModel player) {
         CharSequence text = "Player \"" + activePlayer.getName() + "\" won!";
         game.reset();
         refresh();
     }
 
 
-    public void refresh()
-    {
+    public void refresh() {
         SquareModel[][] field = game.getField();
 
-        for (int i = 0, len = field.length; i < len; i++)
-        {
-            for (int j = 0, len2 = field[i].length; j < len2; j++)
-            {
-                if (field[i][j].getPlayer() == null)
-                {
+        for (int i = 0, len = field.length; i < len; i++) {
+            for (int j = 0, len2 = field[i].length; j < len2; j++) {
+                if (field[i][j].getPlayer() == null) {
                     buttons[i][j].setText("");
-                }
-                else
-                {
+                } else {
                     buttons[i][j].setText(field[i][j].getPlayer().getName());
                 }
             }
         }
     }
 
-    public void onClick(View view)
-    {
+
+
+
+
+    public void onClick(View view) {
         Button button = (Button) view;
         Game g = game;
         PlayerModel player = g.getCurrentActivePlayer();
-        if (makeTurn(x, y))
-        {
+        if (g.makeTurn(x, y)) {
             button.setText(player.getName());
         }
         PlayerModel winner = g.checkWinner();
-        if (winner != null)
-        {
+        if (winner != null) {
             gameOver(winner);
         }
-        if (g.isFieldFilled())
-        {  // в случае, если поле заполнено
+        if (g.isFieldFilled()) {  // в случае, если поле заполнено
             gameOver();
         }
     }
 
-    public void gameOver() { }
+    public void gameOver() {
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,13 +73,13 @@ public class MainActivity extends AppCompatActivity {
         game.start();
 
     }
-    public void buildGameField()
-        {
+
+
+    public void buildGameField() {
         SquareModel[][] field = game.getField();
-        for (int i = 0, lenI = field.length; i < lenI; i++ ) {
+        for (int i = 0, lenI = field.length; i < lenI; i++) {
             TableRow row = new TableRow(this); // создание строки таблицы
-            for (int j = 0, lenJ = field[i].length; j < lenJ; j++)
-            {
+            for (int j = 0, lenJ = field[i].length; j < lenJ; j++) {
                 Button button = new Button(this);
                 buttons[i][j] = button;
                 button.setOnClickListener(new Game.Listener(i, j)); // установка слушателя, реагирующего на клик по кнопке
@@ -97,5 +91,5 @@ public class MainActivity extends AppCompatActivity {
             tlXO.addView(row, new TableLayout.LayoutParams(TableLayout.LayoutParams.WRAP_CONTENT,
                     TableLayout.LayoutParams.WRAP_CONTENT)); // добавление строки в таблицу
         }
-}
+    }
 }
