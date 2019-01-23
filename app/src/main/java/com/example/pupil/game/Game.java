@@ -25,8 +25,8 @@ public class Game {
     public Button[][] buttons = new Button[3][3];
     public TableLayout tlXO;
     private Game game;
-    private int x;
-    private int y;
+    public int x;
+    public int y;
 
     public Game() {
         field = new SquareModel[3][3];
@@ -90,7 +90,7 @@ public class Game {
     }
 
 
-    public boolean makeTurn(int x, int y) {
+    public boolean makeTurn() {
         if (field[x][y].isFilled()) {
             return false;
         }
@@ -187,14 +187,14 @@ public class Game {
         }
     }
 
-    private void gameOver() { }
+    public void gameOver() { }
 
     public boolean makeTurn(int x, int y)
     {
         return game.makeTurn(x, y);
     }
 
-    private void refresh()
+    public void refresh()
     {
         SquareModel[][] field = game.getField();
 
