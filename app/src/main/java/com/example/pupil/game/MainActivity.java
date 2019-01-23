@@ -16,64 +16,20 @@ public class MainActivity extends AppCompatActivity {
     public Button[][] buttons = new Button[3][3];
     public Game game;
     public PlayerModel activePlayer;
-int x,y;
-
-    public void gameOver(PlayerModel player) {
-        CharSequence text = "Player \"" + activePlayer.getName() + "\" won!";
-        game.reset();
-        refresh();
-    }
-
-
-    public void refresh() {
-        SquareModel[][] field = game.getField();
-
-        for (int i = 0, len = field.length; i < len; i++) {
-            for (int j = 0, len2 = field[i].length; j < len2; j++) {
-                if (field[i][j].getPlayer() == null) {
-                    buttons[i][j].setText("");
-                } else {
-                    buttons[i][j].setText(field[i][j].getPlayer().getName());
-                }
-            }
-        }
-    }
-
-
-
-
-
-    public void onClick(View view) {
-        Button button = (Button) view;
-        Game g = game;
-        PlayerModel player = g.getCurrentActivePlayer();
-        if (g.makeTurn(x, y)) {
-            button.setText(player.getName());
-        }
-        PlayerModel winner = g.checkWinner();
-        if (winner != null) {
-            gameOver(winner);
-        }
-        if (g.isFieldFilled()) {  // в случае, если поле заполнено
-            gameOver();
-        }
-    }
-
-    public void gameOver() {
-    }
+    int x, y;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         tlXO = findViewById(R.id.tlXO);
 
-        buildGameField();
+
         game = new Game();
+        buildGameField();
         game.start();
-
     }
-
 
     public void buildGameField() {
         SquareModel[][] field = game.getField();
@@ -91,5 +47,45 @@ int x,y;
             tlXO.addView(row, new TableLayout.LayoutParams(TableLayout.LayoutParams.WRAP_CONTENT,
                     TableLayout.LayoutParams.WRAP_CONTENT)); // добавление строки в таблицу
         }
+    }
+
+    public void onClick(View view) {
+        Button button = (Button) view;
+        Game g = game;
+        PlayerModel player = g.getCurrentActivePlayer();
+        if (g.makeTurn(x, y)) {
+            button.setText(player.getName());
+        }
+        PlayerModel winner = g.checkWinner();
+        if (winner != null) {
+            gameOver(winner);
+        }
+        if (g.isFieldFilled()) {  // в случае, если поле заполнено
+            gameOver();
+        }
+    }
+
+
+    public void refresh() {
+        SquareModel[][] field = game.getField();
+
+        for (int i = 0, len = field.length; i < len; i++) {
+            for (int j = 0, len2 = field[i].length; j < len2; j++) {
+                if (field[i][j].getPlayer() == null) {
+                    buttons[i][j].setText("");
+                } else {
+                    buttons[i][j].setText(field[i][j].getPlayer().getName());
+                }
+            }
+        }
+    }
+
+    public void gameOver() {
+    }
+
+    public void gameOver(PlayerModel player) {
+        CharSequence text = "Player \"" + activePlayer.getName() + "\" won!";
+        game.reset();
+        refresh();
     }
 }
