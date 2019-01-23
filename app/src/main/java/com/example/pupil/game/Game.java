@@ -1,5 +1,6 @@
 package com.example.pupil.game;
 
+import android.content.Context;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TableLayout;
@@ -24,7 +25,7 @@ public class Game {
     public WinnerCheckerInterface[] winnerCheckers;
     public Button[][] buttons = new Button[3][3];
     public TableLayout tlXO;
-    private Game game;
+    public Game game;
     public int x;
     public int y;
 
@@ -69,7 +70,7 @@ public class Game {
     }
 
 
-    private void buildGameField()
+    public void buildGameField()
     {
         SquareModel[][] field = game.getField();
         for (int i = 0, lenI = field.length; i < lenI; i++ ) {
@@ -160,7 +161,7 @@ public class Game {
         return null;
     }
 
-    private void gameOver(PlayerModel player)
+    public void gameOver(PlayerModel player)
     {
         CharSequence text = "Player \"" + activePlayer.getName() + "\" won!";
         game.reset();
