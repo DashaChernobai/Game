@@ -70,25 +70,7 @@ public class Game {
     }
 
 
-    public void buildGameField()
-    {
-        SquareModel[][] field = game.getField();
-        for (int i = 0, lenI = field.length; i < lenI; i++ ) {
-            TableRow row = new TableRow(this); // создание строки таблицы
-            for (int j = 0, lenJ = field[i].length; j < lenJ; j++)
-            {
-                Button button = new Button(this);
-                buttons[i][j] = button;
-                button.setOnClickListener(new Listener(i, j)); // установка слушателя, реагирующего на клик по кнопке
-                row.addView(button, new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT,
-                        TableRow.LayoutParams.WRAP_CONTENT)); // добавление кнопки в строку таблицы
-                button.setWidth(160);
-                button.setHeight(160);
-            }
-            tlXO.addView(row, new TableLayout.LayoutParams(TableLayout.LayoutParams.WRAP_CONTENT,
-                    TableLayout.LayoutParams.WRAP_CONTENT)); // добавление строки в таблицу
-        }
-    }
+    
 
 
     public boolean makeTurn() {
@@ -130,6 +112,8 @@ public class Game {
         }
         filled = 0;
     }
+
+
 
     public static class Listener implements View.OnClickListener {
         public int x = 0;
