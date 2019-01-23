@@ -4,8 +4,8 @@ import com.example.pupil.game.Game;
 import com.example.pupil.game.PlayerModel;
 import com.example.pupil.game.SquareModel;
 
-class WinnerCheckerVertical implements WinnerCheckerInterface {
-    private Game game;
+public class WinnerCheckerVertical implements WinnerCheckerInterface {
+    public Game game;
     public  WinnerCheckerVertical(Game game){
         this.game=game;
     }

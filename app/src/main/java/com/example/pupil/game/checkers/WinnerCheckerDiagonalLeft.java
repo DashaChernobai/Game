@@ -4,10 +4,10 @@ import com.example.pupil.game.Game;
 import com.example.pupil.game.PlayerModel;
 import com.example.pupil.game.SquareModel;
 
-public class WinnerCheckerDiagonal implements WinnerCheckerInterface {
+public class WinnerCheckerDiagonalLeft implements WinnerCheckerInterface {
     private Game game;
 
-    public WinnerCheckerDiagonal(Game game) {
+    public WinnerCheckerDiagonalLeft(Game game) {
         this.game = game;
     }
 
@@ -19,7 +19,7 @@ public class WinnerCheckerDiagonal implements WinnerCheckerInterface {
         PlayerModel lastPlayer = null;
         int successCounter = 1;
         for (int i = 1, len = field.length; i < len; i++) {
-            currPlayer = field[i][field.length-i].getPlayer();
+            currPlayer = field[i][i].getPlayer();
             if (currPlayer != null) {
                 if (successCounter == field.length) {
                     return currPlayer;
