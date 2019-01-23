@@ -73,15 +73,7 @@ public class Game {
     
 
 
-    public boolean makeTurn() {
-        if (field[x][y].isFilled()) {
-            return false;
-        }
-        field[x][y].fill(getCurrentActivePlayer());
-        filled++;
-        switchPlayers();
-        return true;
-    }
+
 
     private void switchPlayers() {
         activePlayer = (activePlayer == players[0] ? players[1] : players[0]);
@@ -131,7 +123,15 @@ public class Game {
 
         }
     }
-
+    public boolean makeTurn(int x, int y) {
+        if (field[x][y].isFilled()) {
+            return false;
+        }
+        field[x][y].fill(getCurrentActivePlayer());
+        filled++;
+        switchPlayers();
+        return true;
+    }
     public PlayerModel checkWinner()
     {
         for (WinnerCheckerInterface winChecker : winnerCheckers)
@@ -145,57 +145,11 @@ public class Game {
         return null;
     }
 
-    public void gameOver(PlayerModel player)
-    {
-        CharSequence text = "Player \"" + activePlayer.getName() + "\" won!";
-        game.reset();
-        refresh();
-    }
 
-    public void onClick(View view)
-    {
-        Button button = (Button) view;
-        Game g = game;
-        PlayerModel player = g.getCurrentActivePlayer();
-        if (makeTurn(x, y))
-        {
-            button.setText(player.getName());
-        }
-        PlayerModel winner = g.checkWinner();
-        if (winner != null)
-        {
-            gameOver(winner);
-        }
-        if (g.isFieldFilled())
-        {  // в случае, если поле заполнено
-            gameOver();
-        }
-    }
 
-    public void gameOver() { }
 
-    public boolean makeTurn(int x, int y)
-    {
-        return game.makeTurn(x, y);
-    }
 
-    public void refresh()
-    {
-        SquareModel[][] field = game.getField();
 
-        for (int i = 0, len = field.length; i < len; i++)
-        {
-            for (int j = 0, len2 = field[i].length; j < len2; j++)
-            {
-                if (field[i][j].getPlayer() == null)
-                {
-                    buttons[i][j].setText("");
-                }
-                else
-                {
-                    buttons[i][j].setText(field[i][j].getPlayer().getName());
-                }
-            }
-        }
-    }
+
+
 }

@@ -7,13 +7,67 @@ import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 
+import static com.example.pupil.game.Game.field;
+
+
 public class MainActivity extends AppCompatActivity {
+
     private TableLayout tlXO;
     private Button[][] buttons = new Button[3][3];
     public Game game;
+    public PlayerModel activePlayer;
 
 
 
+    public void gameOver(PlayerModel player)
+    {
+        CharSequence text = "Player \"" + activePlayer.getName() + "\" won!";
+        game.reset();
+        refresh();
+    }
+
+
+    public void refresh()
+    {
+        SquareModel[][] field = game.getField();
+
+        for (int i = 0, len = field.length; i < len; i++)
+        {
+            for (int j = 0, len2 = field[i].length; j < len2; j++)
+            {
+                if (field[i][j].getPlayer() == null)
+                {
+                    buttons[i][j].setText("");
+                }
+                else
+                {
+                    buttons[i][j].setText(field[i][j].getPlayer().getName());
+                }
+            }
+        }
+    }
+
+    public void onClick(View view)
+    {
+        Button button = (Button) view;
+        Game g = game;
+        PlayerModel player = g.getCurrentActivePlayer();
+        if (makeTurn(x, y))
+        {
+            button.setText(player.getName());
+        }
+        PlayerModel winner = g.checkWinner();
+        if (winner != null)
+        {
+            gameOver(winner);
+        }
+        if (g.isFieldFilled())
+        {  // в случае, если поле заполнено
+            gameOver();
+        }
+    }
+
+    public void gameOver() { }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
